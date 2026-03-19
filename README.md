@@ -89,6 +89,43 @@ docker-compose ps
 - ✅ GZIP compression activé
 - ✅ Headers de sécurité
 
+## ⚙️ Configuration Luanti (`minetest.conf`)
+
+Le fichier `minetest/minetest.conf` configure les paramètres du serveur :
+
+### Paramètres clés
+
+```ini
+# Informations serveur
+server_name = Luanti Docker                        # Nom du serveur
+server_description = ...                           # Description longue
+motd = Bienvenue ! ...                             # Message de bienvenue
+
+# Réseau
+port = 30000                                       # Port UDP/TCP du serveur
+
+# Prometheus Metrics
+prometheus_listener_address = 0.0.0.0:30000       # Écoute les métriques sur TCP 30000
+                                                  # (0.0.0.0 = accessible depuis Docker)
+
+# Gameplay
+default_game = minetest_game                      # Jeu par défaut
+creative_mode = true                              # Mode créatif activé
+enable_damage = false                             # Pas de dégâts de chute
+max_users = 10                                    # Maximum de joueurs simultanés
+
+# Admin
+name = Sheiethan                                  # Nom du propriétaire
+```
+
+### Modification de la configuration
+
+Pour modifier la config :
+
+1. Édite `minetest/minetest.conf`
+2. Pas besoin de rebuild Docker (volume monté en read-only dans le conteneur)
+3. Relance le serveur : `docker-compose restart luanti`
+
 ## 📈 Métriques exposées
 
 Le serveur Luanti expose les métriques standard Prometheus sur `http://luanti:30000/metrics` :
@@ -274,6 +311,6 @@ Ce projet est fourni à titre d'exemple éducatif.
 
 ---
 
-**Auteur** : DevOps-Docker Course  
+**Auteur** : Ethan
 **Date** : 2026  
 **Version** : 1.0.0
